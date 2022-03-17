@@ -16,6 +16,7 @@ import (
 	"reflect"
 )
 
+// Validator defines validator struct
 type Validator struct {
 	structPtr interface{}
 	fields    []*reflect.StructField
@@ -23,11 +24,13 @@ type Validator struct {
 	items     []interface{}
 }
 
+// New return new *Validator
 func New(structPtr interface{}) *Validator {
 	fields, values, tags := reflectx.ParseTag(structPtr, new(Item), "alias", "validate", true)
 	return &Validator{structPtr, fields, values, tags}
 }
 
+// Validate return validation result
 func (v *Validator) Validate() *Result {
 	resultItems := make([]*ResultItem, len(v.fields))
 	passedCount := 0

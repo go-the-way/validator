@@ -9,26 +9,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package validator
-//
-// A lightweight model validator written in Go.
-//
-// ::usage::
-//
-//
-// package main
-//
-// import (
-//	"fmt"
-//
-//	 v "github.com/go-the-way/validator"
-// )
-//
-// func main() {
-//	result := v.New(&struct {
-//		int `validate:"min(10,fail)"`
-//	}{}).Validate()
-//	fmt.Println(result.Passed)
-//	fmt.Println(result.Messages())
-// }
+// Package validator is a lightweight model validator written in Go.
+/*
+
+::quickstart::
+
+ package main
+
+ import (
+	"fmt"
+
+	 v "github.com/go-the-way/validator"
+ )
+
+ func main() {
+	result := v.New(&struct {
+		int `validate:"min(10,fail)"`
+	}{}).Validate()
+	fmt.Println(result.Passed)
+	fmt.Println(result.Messages())
+ }
+*/
 package validator
