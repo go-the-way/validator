@@ -1,5 +1,5 @@
-github.com/billcoding/reflectx v0.0.0-20211015032602-919530ff1c45 h1:q1/7I7/YW+DybhY0eOk898PqoiiDkic8FyEgwlaMjMs=
-github.com/billcoding/reflectx v0.0.0-20211015032602-919530ff1c45/go.mod h1:ic/eaSphkUtfYF++1itJDLRB//DN9BhTd0I3QzSYNeg=
+github.com/billcoding/reflectx v1.0.0 h1:9aud25aPWHOzaeuiWxEoa5zzCg0ShJob+Crzcpwjfqg=
+github.com/billcoding/reflectx v1.0.0/go.mod h1:ic/eaSphkUtfYF++1itJDLRB//DN9BhTd0I3QzSYNeg=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
