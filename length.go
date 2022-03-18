@@ -40,28 +40,17 @@ func LengthFunc(str string) VFunc {
 	}
 }
 
-// Accept method
-func (f *lengthFunc) Accept(typ reflect.Type) bool {
-	if reflectx.IsArray(typ) || reflectx.IsSlice(typ) {
-		return true
-	}
-	if reflectx.IsPtr(typ) {
-		return f.Accept(typ.Elem())
-	}
-	return reflectx.IsString(typ)
-}
-
-// Pass method
-func (f *lengthFunc) Pass(value reflect.Value) (bool, string) {
+// Valid method
+func (f *lengthFunc) Valid(value reflect.Value) (bool, string) {
 	passed, msg := false, f.msg
 	typ := value.Type()
 	switch {
 	case reflectx.IsPtr(typ):
-		return f.Pass(value.Elem())
+		return f.Valid(value.Elem())
 	case reflectx.IsArray(typ) || reflectx.IsSlice(typ):
 		if reflectx.IsString(value.Type().Elem()) {
 			for i := 0; i < value.Len(); i++ {
-				passed, msg = f.Pass(value.Index(i))
+				passed, msg = f.Valid(value.Index(i))
 				if !passed {
 					break
 				}

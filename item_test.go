@@ -20,7 +20,7 @@ func TestItemVF(t *testing.T) {
 	{
 		i := Item{}
 		vFs := i.vfs()
-		expectLen := 7
+		expectLen := 8
 		if len(vFs) != expectLen {
 			t.Fatalf("test failed: vFs length expect [%d], but got [%d]\n", expectLen, len(vFs))
 		}
@@ -32,9 +32,9 @@ func TestItemVF(t *testing.T) {
 	}
 
 	{
-		i := Item{"0", "0", "0", "0", "0", "0", "0", "0"}
+		i := Item{"0", "0", "0", "0", "0", "0", "0", "0", "F"}
 		vFs := i.vfs()
-		expectLen := 7
+		expectLen := 8
 		if len(vFs) != expectLen {
 			t.Fatalf("test failed: vFs length expect [%d], but got [%d]\n", expectLen, len(vFs))
 		}

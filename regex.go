@@ -35,25 +35,17 @@ func RegexFunc(str string) VFunc {
 	return &regexFunc{vStr, msg}
 }
 
-// Accept method
-func (f *regexFunc) Accept(typ reflect.Type) bool {
-	if isCanEle(typ) {
-		return f.Accept(typ.Elem())
-	}
-	return reflectx.IsString(typ)
-}
-
-// Pass method
-func (f *regexFunc) Pass(value reflect.Value) (bool, string) {
+// Valid method
+func (f *regexFunc) Valid(value reflect.Value) (bool, string) {
 	passed, msg := true, f.msg
 	re := regexp.MustCompile(f.patten)
 	typ := value.Type()
 	switch {
 	case reflectx.IsPtr(typ):
-		return f.Pass(value.Elem())
+		return f.Valid(value.Elem())
 	case reflectx.IsArray(typ) || reflectx.IsSlice(typ):
 		for i := 0; i < value.Len(); i++ {
-			passed, msg = f.Pass(value.Index(i))
+			passed, msg = f.Valid(value.Index(i))
 			if !passed {
 				break
 			}

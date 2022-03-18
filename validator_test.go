@@ -20,7 +20,6 @@ type testCase struct {
 	name string
 	VFunc
 	reflect.Value
-	accept bool
 	passed bool
 	msg    string
 }
@@ -29,17 +28,12 @@ func (tc *testCase) test(t *testing.T) {
 	if tc.VFunc == nil {
 		t.Fatalf("%s failed: tc.VFunc is nil\n", t.Name())
 	}
-	if accept := tc.VFunc.Accept(tc.Value.Type()); accept != tc.accept {
-		t.Fatalf("%s failed: accept expect [%v], but got [%v]\n", t.Name(), tc.accept, accept)
+	passed, msg := tc.VFunc.Valid(tc.Value)
+	if passed != tc.passed {
+		t.Fatalf("%s failed: passed expect [%v], but got [%v]\n", t.Name(), tc.passed, passed)
 	}
-	if tc.accept {
-		passed, msg := tc.VFunc.Pass(tc.Value)
-		if passed != tc.passed {
-			t.Fatalf("%s failed: passed expect [%v], but got [%v]\n", t.Name(), tc.passed, passed)
-		}
-		if msg != tc.msg {
-			t.Fatalf("%s failed: msg expect [%v], but got [%v]\n", t.Name(), tc.msg, msg)
-		}
+	if msg != tc.msg {
+		t.Fatalf("%s failed: msg expect [%v], but got [%v]\n", t.Name(), tc.msg, msg)
 	}
 }
 

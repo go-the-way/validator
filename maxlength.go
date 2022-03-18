@@ -40,25 +40,17 @@ func MaxLengthFunc(str string) VFunc {
 	}
 }
 
-// Accept method
-func (f *maxLengthFunc) Accept(typ reflect.Type) bool {
-	if reflectx.IsPtr(typ) {
-		return f.Accept(typ.Elem())
-	}
-	return reflectx.IsString(typ) || reflectx.IsArray(typ) || reflectx.IsSlice(typ)
-}
-
-// Pass method
-func (f *maxLengthFunc) Pass(value reflect.Value) (bool, string) {
+// Valid method
+func (f *maxLengthFunc) Valid(value reflect.Value) (bool, string) {
 	var passed, msg = true, f.msg
 	typ := value.Type()
 	switch {
 	case reflectx.IsPtr(typ):
-		return f.Pass(value.Elem())
+		return f.Valid(value.Elem())
 	case reflectx.IsArray(typ) || reflectx.IsSlice(typ):
 		if reflectx.IsString(value.Type().Elem()) {
 			for i := 0; i < value.Len(); i++ {
-				passed, msg = f.Pass(value.Index(i))
+				passed, msg = f.Valid(value.Index(i))
 				if !passed {
 					break
 				}

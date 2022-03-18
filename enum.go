@@ -36,24 +36,16 @@ func EnumFunc(str string) VFunc {
 	return &enumFunc{vStr, msg}
 }
 
-// Accept method
-func (f *enumFunc) Accept(typ reflect.Type) bool {
-	if isCanEle(typ) {
-		return f.Accept(typ.Elem())
-	}
-	return isNumber(typ, false) || reflectx.IsString(typ)
-}
-
-// Pass method
-func (f *enumFunc) Pass(value reflect.Value) (bool, string) {
+// Valid method
+func (f *enumFunc) Valid(value reflect.Value) (bool, string) {
 	var passed, msg = true, f.msg
 	typ := value.Type()
 	switch {
 	case reflectx.IsPtr(typ):
-		return f.Pass(value.Elem())
+		return f.Valid(value.Elem())
 	case reflectx.IsArray(typ) || reflectx.IsSlice(typ):
 		for i := 0; i < value.Len(); i++ {
-			passed, msg = f.Pass(value.Index(i))
+			passed, msg = f.Valid(value.Index(i))
 			if !passed {
 				break
 			}

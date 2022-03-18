@@ -25,6 +25,7 @@ type Item struct {
 	Enum      string `alias:"enum"`      // Enum for enum values
 	Regex     string `alias:"regex"`     // Regex for regex pattern
 	Msg       string `alias:"msg"`       // Msg for message
+	Valid     string `alias:"valid"`     // Valid for valid
 }
 
 func (i *Item) vfs() []VFunc {
@@ -36,25 +37,23 @@ func (i *Item) vfs() []VFunc {
 		MaxLengthFunc(i.MaxLength),
 		EnumFunc(i.Enum),
 		RegexFunc(i.Regex),
+		ValidFunc(i.Valid),
 	}
 }
 
 // Validate by fields
-func (i *Item) Validate(field reflect.StructField, value reflect.Value) (bool, string) {
+func (i *Item) Validate(_ reflect.StructField, value reflect.Value) (bool, string) {
 	passed, msg := true, i.Msg
 	fs := i.vfs()
 	for _, f := range fs {
 		if f != nil {
-			if f.Accept(field.Type) {
-				if passed2, msg2 := f.Pass(value); !passed2 {
-					passed = false
-					if msg2 != "" {
-						msg = msg2
-					}
+			if passed2, msg2 := f.Valid(value); !passed2 {
+				passed = false
+				if msg2 != "" {
+					msg = msg2
 				}
 			}
 		}
 	}
-
 	return passed, msg
 }

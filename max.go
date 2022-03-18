@@ -40,24 +40,16 @@ func MaxFunc(str string) VFunc {
 	}
 }
 
-// Accept method
-func (f *maxFunc) Accept(typ reflect.Type) bool {
-	if isCanEle(typ) {
-		return f.Accept(typ.Elem())
-	}
-	return isNumber(typ, true)
-}
-
-// Pass method
-func (f *maxFunc) Pass(value reflect.Value) (bool, string) {
+// Valid method
+func (f *maxFunc) Valid(value reflect.Value) (bool, string) {
 	passed, msg := true, f.msg
 	typ := value.Type()
 	switch {
 	case reflectx.IsPtr(typ):
-		return f.Pass(value.Elem())
+		return f.Valid(value.Elem())
 	case reflectx.IsArray(typ) || reflectx.IsSlice(typ):
 		for i := 0; i < value.Len(); i++ {
-			passed, msg = f.Pass(value.Index(i))
+			passed, msg = f.Valid(value.Index(i))
 			if !passed {
 				break
 			}
