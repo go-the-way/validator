@@ -17,15 +17,18 @@ import (
 
 // Item struct
 type Item struct {
-	Min       string `alias:"min"`       // Min for min value
-	Max       string `alias:"max"`       // Max for max value
-	MinLength string `alias:"minlength"` // MinLength for min length
-	MaxLength string `alias:"maxlength"` // MaxLength for max length
-	Length    string `alias:"length"`    // Length for length
-	Enum      string `alias:"enum"`      // Enum for enum values
-	Regex     string `alias:"regex"`     // Regex for regex pattern
-	Msg       string `alias:"msg"`       // Msg for message
-	Valid     string `alias:"valid"`     // Valid for valid
+	Min          string `alias:"min"`           // Min for min value
+	Max          string `alias:"max"`           // Max for max value
+	MinLength    string `alias:"minlength"`     // MinLength for min length
+	ArrMinLength string `alias:"arr_minlength"` // ArrMinLength for array min length
+	MaxLength    string `alias:"maxlength"`     // MaxLength for max length
+	ArrMaxLength string `alias:"arr_maxlength"` // ArrMaxLength for array max length
+	Length       string `alias:"length"`        // Length for length
+	ArrLength    string `alias:"arr_length"`    // ArrLength for array length
+	Enum         string `alias:"enum"`          // Enum for enum values
+	Regex        string `alias:"regex"`         // Regex for regex pattern
+	Msg          string `alias:"msg"`           // Msg for message
+	Valid        string `alias:"valid"`         // Valid for valid
 }
 
 func (i *Item) vfs() []VFunc {
@@ -33,8 +36,11 @@ func (i *Item) vfs() []VFunc {
 		MinFunc(i.Min),
 		MaxFunc(i.Max),
 		LengthFunc(i.Length),
+		ArrLengthFunc(i.ArrLength),
 		MinLengthFunc(i.MinLength),
+		ArrMinLengthFunc(i.ArrMinLength),
 		MaxLengthFunc(i.MaxLength),
+		ArrMaxLengthFunc(i.ArrMaxLength),
 		EnumFunc(i.Enum),
 		RegexFunc(i.Regex),
 		ValidFunc(i.Valid),

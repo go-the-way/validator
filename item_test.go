@@ -20,7 +20,7 @@ func TestItemVF(t *testing.T) {
 	{
 		i := Item{}
 		vFs := i.vfs()
-		expectLen := 8
+		expectLen := 11
 		if len(vFs) != expectLen {
 			t.Fatalf("test failed: vFs length expect [%d], but got [%d]\n", expectLen, len(vFs))
 		}
@@ -32,9 +32,9 @@ func TestItemVF(t *testing.T) {
 	}
 
 	{
-		i := Item{"0", "0", "0", "0", "0", "0", "0", "0", "F"}
+		i := Item{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "F"}
 		vFs := i.vfs()
-		expectLen := 8
+		expectLen := 11
 		if len(vFs) != expectLen {
 			t.Fatalf("test failed: vFs length expect [%d], but got [%d]\n", expectLen, len(vFs))
 		}
@@ -72,17 +72,35 @@ func TestItemValidate(t *testing.T) {
 		{"lengthUnPassAndGlobalMsg", &Item{Length: "0", Msg: "fail"}, reflect.ValueOf("1"), false, "fail"},
 		{"lengthPass", &Item{Length: "1"}, reflect.ValueOf("1"), true, ""},
 
+		// arrLength
+		{"arrLengthUnPass", &Item{ArrLength: "0"}, reflect.ValueOf(make([]interface{}, 1)), false, ""},
+		{"arrLengthUnPassAndMsg", &Item{ArrLength: "0,fail"}, reflect.ValueOf(make([]interface{}, 1)), false, "fail"},
+		{"arrLengthUnPassAndGlobalMsg", &Item{ArrLength: "0", Msg: "fail"}, reflect.ValueOf(make([]interface{}, 1)), false, "fail"},
+		{"arrLengthPass", &Item{ArrLength: "1"}, reflect.ValueOf(make([]interface{}, 1)), true, ""},
+
 		// minLength
 		{"minLengthUnPass", &Item{MinLength: "2"}, reflect.ValueOf("1"), false, ""},
 		{"minLengthUnPassAndMsg", &Item{MinLength: "2,fail"}, reflect.ValueOf("1"), false, "fail"},
 		{"minLengthUnPassAndGlobalMsg", &Item{MinLength: "2", Msg: "fail"}, reflect.ValueOf("1"), false, "fail"},
 		{"minLengthPass", &Item{MinLength: "1"}, reflect.ValueOf("1"), true, ""},
 
+		// arrMinLength
+		{"arrMinLengthUnPass", &Item{ArrMinLength: "1"}, reflect.ValueOf(make([]interface{}, 0)), false, ""},
+		{"arrMinLengthUnPassAndMsg", &Item{ArrMinLength: "1,fail"}, reflect.ValueOf(make([]interface{}, 0)), false, "fail"},
+		{"arrMinLengthUnPassAndGlobalMsg", &Item{ArrMinLength: "1", Msg: "fail"}, reflect.ValueOf(make([]interface{}, 0)), false, "fail"},
+		{"arrMinLengthPass", &Item{ArrMinLength: "1"}, reflect.ValueOf(make([]interface{}, 1)), true, ""},
+
 		// maxLength
 		{"maxLengthUnPass", &Item{MaxLength: "0"}, reflect.ValueOf("1"), false, ""},
 		{"maxLengthUnPassAndMsg", &Item{MaxLength: "0,fail"}, reflect.ValueOf("1"), false, "fail"},
 		{"maxLengthUnPassAndGlobalMsg", &Item{MaxLength: "0", Msg: "fail"}, reflect.ValueOf("1"), false, "fail"},
 		{"maxLengthPass", &Item{MaxLength: "1"}, reflect.ValueOf("1"), true, ""},
+
+		// arrMaxLength
+		{"arrMaxLengthUnPass", &Item{ArrMaxLength: "0"}, reflect.ValueOf(make([]interface{}, 1)), false, ""},
+		{"arrMaxLengthUnPassAndMsg", &Item{ArrMaxLength: "0,fail"}, reflect.ValueOf(make([]interface{}, 1)), false, "fail"},
+		{"arrMaxLengthUnPassAndGlobalMsg", &Item{ArrMaxLength: "0", Msg: "fail"}, reflect.ValueOf(make([]interface{}, 1)), false, "fail"},
+		{"arrMaxLengthPass", &Item{ArrMaxLength: "1"}, reflect.ValueOf(make([]interface{}, 1)), true, ""},
 
 		// enum
 		{"enumUnPass", &Item{Enum: "0"}, reflect.ValueOf("1"), false, ""},

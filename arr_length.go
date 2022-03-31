@@ -17,14 +17,14 @@ import (
 	"strconv"
 )
 
-// maxLengthFunc struct
-type maxLengthFunc struct {
-	maxLength int
-	msg       string
+// arrLengthFunc struct
+type arrLengthFunc struct {
+	length int
+	msg    string
 }
 
-// MaxLengthFunc method
-func MaxLengthFunc(str string) VFunc {
+// ArrLengthFunc method
+func ArrLengthFunc(str string) VFunc {
 	if str == "" {
 		return nil
 	}
@@ -36,26 +36,19 @@ func MaxLengthFunc(str string) VFunc {
 	if v, err := strconv.ParseInt(vStr, 10, 64); err != nil {
 		panic(err)
 	} else {
-		return &maxLengthFunc{int(v), msg}
+		return &arrLengthFunc{int(v), msg}
 	}
 }
 
 // Valid method
-func (f *maxLengthFunc) Valid(value reflect.Value) (bool, string) {
-	var passed, msg = true, f.msg
+func (f *arrLengthFunc) Valid(value reflect.Value) (bool, string) {
+	passed, msg := true, f.msg
 	typ := value.Type()
 	switch {
 	case reflectx.IsPtr(typ):
 		return f.Valid(value.Elem())
 	case reflectx.IsArray(typ) || reflectx.IsSlice(typ):
-		for i := 0; i < value.Len(); i++ {
-			passed, msg = f.Valid(value.Index(i))
-			if !passed {
-				break
-			}
-		}
-	case reflectx.IsString(typ):
-		passed = f.maxLength >= len(value.String())
+		passed = f.length == value.Len()
 	}
 	return passed, msg
 }

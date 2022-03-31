@@ -25,16 +25,17 @@ func findSpIdx(str string) int {
 	return idx
 }
 
-func bytePtr(i byte) *byte          { return &i }
-func runePtr(i rune) *rune          { return &i }
-func int8Ptr(i int8) *int8          { return &i }
-func int16Ptr(i int16) *int16       { return &i }
-func int32Ptr(i int32) *int32       { return &i }
-func int64Ptr(i int64) *int64       { return &i }
-func intPtr(i int) *int             { return &i }
-func stringPtr(i string) *string    { return &i }
-func float32Ptr(i float32) *float32 { return &i }
-func float64Ptr(i float64) *float64 { return &i }
+func bytePtr(i byte) *byte                    { return &i }
+func runePtr(i rune) *rune                    { return &i }
+func int8Ptr(i int8) *int8                    { return &i }
+func int16Ptr(i int16) *int16                 { return &i }
+func int32Ptr(i int32) *int32                 { return &i }
+func int64Ptr(i int64) *int64                 { return &i }
+func intPtr(i int) *int                       { return &i }
+func stringPtr(i string) *string              { return &i }
+func float32Ptr(i float32) *float32           { return &i }
+func float64Ptr(i float64) *float64           { return &i }
+func arrayPtr(i []interface{}) *[]interface{} { return &i }
 
 func parseNumError(fN, v string) error {
 	return &strconv.NumError{Func: fN, Num: v, Err: errors.New("invalid syntax")}

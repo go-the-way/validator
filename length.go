@@ -42,7 +42,7 @@ func LengthFunc(str string) VFunc {
 
 // Valid method
 func (f *lengthFunc) Valid(value reflect.Value) (bool, string) {
-	passed, msg := false, f.msg
+	passed, msg := true, f.msg
 	typ := value.Type()
 	switch {
 	case reflectx.IsPtr(typ):
