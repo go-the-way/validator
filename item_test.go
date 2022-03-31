@@ -32,7 +32,7 @@ func TestItemVF(t *testing.T) {
 	}
 
 	{
-		i := Item{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "F"}
+		i := Item{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "F", ""}
 		vFs := i.vfs()
 		expectLen := 11
 		if len(vFs) != expectLen {

@@ -29,6 +29,7 @@ type Item struct {
 	Regex        string `alias:"regex"`         // Regex for regex pattern
 	Msg          string `alias:"msg"`           // Msg for message
 	Valid        string `alias:"valid"`         // Valid for valid
+	Custom       string `alias:"custom"`        // Custom for custom validator
 }
 
 func (i *Item) vfs() []VFunc {
@@ -44,6 +45,7 @@ func (i *Item) vfs() []VFunc {
 		EnumFunc(i.Enum),
 		RegexFunc(i.Regex),
 		ValidFunc(i.Valid),
+		customVFMap[i.Custom],
 	}
 }
 
