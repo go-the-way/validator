@@ -34,12 +34,12 @@ func TestItemVF(t *testing.T) {
 	{
 		i := Item{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "F", ""}
 		vFs := i.vfs()
-		expectLen := 11
+		expectLen := 12
 		if len(vFs) != expectLen {
 			t.Fatalf("test failed: vFs length expect [%d], but got [%d]\n", expectLen, len(vFs))
 		}
-		for _, vF := range vFs {
-			if vF == nil {
+		for i, vF := range vFs {
+			if vF == nil && i != len(vFs)-1 {
 				t.Fatal("test failed: every vF expect not nil, but got nil")
 			}
 		}
