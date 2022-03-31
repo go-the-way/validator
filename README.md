@@ -9,6 +9,7 @@ A lightweight model validator written in Go.
 [![Release](https://img.shields.io/github/release/go-the-way/validator.svg?style=flat-square)](https://github.com/go-the-way/validator/releases)
 
 ## quickstart
+
 ```go
 package main
 
@@ -23,6 +24,27 @@ func main() {
 	}{}).Validate()
 	fmt.Println(result.Passed)
 	fmt.Println(result.Messages())
+}
+```
+
+## Custom validation implementation
+
+```go
+package main
+
+import (
+	"fmt"
+	v "github.com/go-the-way/validator"
+	"reflect"
+)
+
+func main() {
+	v.Custom("mycustom", func(value reflect.Value) (bool, string) { return false, "mycustom validation." })
+	vv := v.New(&struct {
+		Name string `validate:"custom(mycustom)"`
+	}{}).Validate()
+	fmt.Println(vv.Passed)
+	fmt.Println(vv.Messages())
 }
 ```
 
@@ -41,3 +63,4 @@ func main() {
 | Enum         | `([])(*)uint{8,64}`, `([])(*)int{8,64}`, `([])(*)float{32,64}`, `([])(*)string` | validate:"enum(O,invalid)"          | `Every value` must be one of `O`                                                                                                 |
 | Regex        | `([])(*)string`                                                                 | validate:"regex(RE,invalid)"        | `Every value` must be match `RE`                                                                                                 |
 | Valid        | `*struct{}`                                                                     | validate:"valid(T,invalid)"         | `Value` must be not `nil`                                                                                                        |
+| Custom       | `any`                                                                           | validate:"custom(CUSTOM)"           | `CUSTOM` validation                                                                                                       |
