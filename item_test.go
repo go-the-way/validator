@@ -20,7 +20,7 @@ func TestItemVF(t *testing.T) {
 	{
 		i := Item{}
 		vFs := i.vfs()
-		expectLen := 11
+		expectLen := 12
 		if len(vFs) != expectLen {
 			t.Fatalf("test failed: vFs length expect [%d], but got [%d]\n", expectLen, len(vFs))
 		}
