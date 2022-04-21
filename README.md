@@ -7,6 +7,7 @@ A lightweight model validator written in Go.
 [![Go Report Card](https://goreportcard.com/badge/github.com/go-the-way/validator)](https://goreportcard.com/report/github.com/go-the-way/validator)
 [![GoDoc](https://pkg.go.dev/badge/github.com/go-the-way/validator?status.svg)](https://pkg.go.dev/github.com/go-the-way/validator?tab=doc)
 [![Release](https://img.shields.io/github/release/go-the-way/validator.svg?style=flat-square)](https://github.com/go-the-way/validator/releases)
+[![Mentioned in Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go#validation)
 
 ## quickstart
 
