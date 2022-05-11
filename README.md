@@ -3,6 +3,7 @@
 A lightweight model validator written in Go.
 
 [![CircleCI](https://circleci.com/gh/go-the-way/validator/tree/main.svg?style=shield)](https://circleci.com/gh/go-the-way/validator/tree/main)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/go-the-way/validator)
 [![codecov](https://codecov.io/gh/go-the-way/validator/branch/main/graph/badge.svg?token=8MAR3J959H)](https://codecov.io/gh/go-the-way/validator)
 [![Go Report Card](https://goreportcard.com/badge/github.com/go-the-way/validator)](https://goreportcard.com/report/github.com/go-the-way/validator)
 [![GoDoc](https://pkg.go.dev/badge/github.com/go-the-way/validator?status.svg)](https://pkg.go.dev/github.com/go-the-way/validator?tab=doc)
