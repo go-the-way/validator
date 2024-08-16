@@ -104,3 +104,11 @@ func TestNew(t *testing.T) {
 		})
 	}
 }
+
+func TestValidator_Lang(t *testing.T) {
+	langS := []string{"zh-CN", "en-US"}
+	v := New(&struct{}{}).Lang(langS...)
+	if !reflect.DeepEqual(v.lang, langS) {
+		t.Fatalf("test failed: expect [%s], but got [%s]\n", langS, v.lang)
+	}
+}

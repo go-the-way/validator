@@ -13,6 +13,7 @@ package validator
 
 import (
 	"reflect"
+	"strings"
 )
 
 // Item struct
@@ -57,6 +58,7 @@ func (i *Item) Validate(_ reflect.StructField, value reflect.Value) (bool, strin
 		if f != nil {
 			if passed2, msg2 := f.Valid(value); !passed2 {
 				passed = false
+				msg2 = strings.TrimSpace(msg2)
 				if msg2 != "" {
 					msg = msg2
 				}

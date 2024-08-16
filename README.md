@@ -10,6 +10,9 @@ A lightweight model validator written in Go.
 [![Release](https://img.shields.io/github/release/go-the-way/validator.svg?style=flat-square)](https://github.com/go-the-way/validator/releases)
 [![Mentioned in Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go#validation)
 
+## Features
+- Supports multiple language.
+
 ## quickstart
 
 ```go

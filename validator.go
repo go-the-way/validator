@@ -22,13 +22,17 @@ type Validator struct {
 	fields    []*reflect.StructField
 	values    []*reflect.Value
 	items     []interface{}
+	lang      []string
 }
 
 // New return new *Validator
 func New(structPtr interface{}) *Validator {
 	fields, values, tags := reflectx.ParseTag(structPtr, new(Item), "alias", "validate", true)
-	return &Validator{structPtr, fields, values, tags}
+	return &Validator{structPtr, fields, values, tags, nil}
 }
+
+// Lang set supported lang
+func (v *Validator) Lang(lang ...string) *Validator { v.lang = lang; return v }
 
 // Validate return validation result
 func (v *Validator) Validate() *Result {
@@ -44,11 +48,7 @@ func (v *Validator) Validate() *Result {
 			passedCount++
 		}
 	}
-	return &Result{
-		StructPtr: v.structPtr,
-		Passed:    len(v.items) == passedCount,
-		Items:     resultItems,
-	}
+	return newResult(v.structPtr, resultItems, len(v.items) == passedCount, v.lang)
 }
 
 func validate(item *Item, field *reflect.StructField, value *reflect.Value) *ResultItem {

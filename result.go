@@ -21,6 +21,23 @@ type Result struct {
 	StructPtr interface{}
 	Passed    bool
 	Items     []*ResultItem
+	lang      []string
+	lm        map[string]int
+}
+
+func newResult(structPtr interface{}, items []*ResultItem, passed bool, lang []string) *Result {
+	rt := &Result{StructPtr: structPtr, Items: items, Passed: passed, lang: lang}
+	// lang: zh-CN,en-US,zh-TW
+	var lm = map[string]int{}
+	var idx = 0
+	for _, lang0 := range lang {
+		if lang0 != "" {
+			lm[lang0] = idx
+			idx++
+		}
+	}
+	rt.lm = lm
+	return rt
 }
 
 // ResultItem struct
@@ -31,11 +48,24 @@ type ResultItem struct {
 }
 
 // Messages return un-passed messages
-func (r *Result) Messages() string {
+func (r *Result) Messages(lang ...string) string {
+	langPos := 0
+	if len(lang) > 0 {
+		if lang0 := lang[0]; len(lang0) > 0 {
+			if langPos0, ok := r.lm[lang0]; ok && langPos0 != -1 {
+				langPos = langPos0
+			}
+		}
+	}
 	messages := make([]string, 0)
 	for _, item := range r.Items {
-		if !item.Passed && item.Message != "" {
-			messages = append(messages, item.Message)
+		msg := item.Message
+		if !item.Passed && msg != "" {
+			msgS := strings.Split(msg, "|")
+			if langPos <= len(msgS) {
+				msg = msgS[langPos]
+			}
+			messages = append(messages, msg)
 		}
 	}
 	return strings.Join(messages, ",")
